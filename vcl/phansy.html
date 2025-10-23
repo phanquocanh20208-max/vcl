@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phan Sỹ Nguyên - Wikipedia</title>
+    <link rel="icon" href="image.png" type="image/x-icon">
+    <style>
+        :root {
+            --wikipedia-bg: #f8f9fa;
+            --wikipedia-border: #a2a9b1;
+            --wikipedia-blue: #3366cc;
+            --wikipedia-dark-blue: #2a4b8d;
+            --wikipedia-red: #cc0000;
+        }
+        
+        body {
+            font-family: 'Linux Libertine', 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--wikipedia-bg);
+            color: #202122;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            border-bottom: 1px solid var(--wikipedia-border);
+            padding: 10px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--wikipedia-blue);
+        }
+        
+        .main-content {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid var(--wikipedia-border);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+        }
+        
+        .sidebar {
+            width: 300px;
+            margin-left: 20px;
+            background-color: white;
+            border: 1px solid var(--wikipedia-border);
+            padding: 15px;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+        }
+        
+        h1 {
+            border-bottom: 1px solid var(--wikipedia-border);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 28px;
+            font-weight: normal;
+        }
+        
+        h2 {
+            font-size: 21px;
+            font-weight: normal;
+            border-bottom: 1px solid var(--wikipedia-border);
+            padding-bottom: 5px;
+        }
+        
+        .infobox {
+            border: 1px solid var(--wikipedia-border);
+            background-color: #f8f9fa;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .infobox-title {
+            text-align: center;
+            font-weight: bold;
+            background-color: #e6e6e6;
+            padding: 5px;
+            margin: -10px -10px 10px -10px;
+        }
+        
+        .infobox-image {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .infobox-image img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        
+        .infobox-image .caption {
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .infobox-row {
+            display: flex;
+            margin-bottom: 5px;
+        }
+        
+        .infobox-label {
+            font-weight: bold;
+            width: 40%;
+        }
+        
+        .infobox-value {
+            width: 60%;
+        }
+        
+        .warning-box {
+            background-color: #fef6e7;
+            border: 1px solid #fc3;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .warning-box:before {
+            content: "⚠";
+            font-size: 20px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        
+        .warning-content {
+            margin-left: 30px;
+        }
+        
+        .quote-box {
+            background-color: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            font-style: italic;
+        }
+        
+        .quote-box:before {
+            color: #ccc;
+            content: open-quote;
+            font-size: 4em;
+            line-height: 0.1em;
+            margin-right: 0.25em;
+            vertical-align: -0.4em;
+        }
+        
+        .scary-text {
+            color: #8b0000;
+            font-weight: bold;
+        }
+        
+        .glitch-effect {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-effect:before,
+        .glitch-effect:after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-effect:before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch-effect:after {
+            left: -2px;
+            text-shadow: 1px 0 blue;
+            animation: glitch-2 3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-1 {
+            0% { clip-path: inset(20% 0 65% 0); }
+            20% { clip-path: inset(60% 0 15% 0); }
+            40% { clip-path: inset(40% 0 35% 0); }
+            60% { clip-path: inset(25% 0 55% 0); }
+            80% { clip-path: inset(55% 0 10% 0); }
+            100% { clip-path: inset(90% 0 5% 0); }
+        }
+        
+        @keyframes glitch-2 {
+            0% { clip-path: inset(25% 0 30% 0); }
+            20% { clip-path: inset(45% 0 20% 0); }
+            40% { clip-path: inset(50% 0 30% 0); }
+            60% { clip-path: inset(30% 0 60% 0); }
+            80% { clip-path: inset(80% 0 5% 0); }
+            100% { clip-path: inset(80% 0 1% 0); }
+        }
+        
+        .flicker {
+            animation: flicker 3s linear infinite;
+        }
+        
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+                opacity: 1;
+            }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+                opacity: 0.4;
+            }
+        }
+        
+        .hidden-message {
+            color: white;
+            background-color: white;
+            transition: background-color 0.5s;
+            cursor: pointer;
+        }
+        
+        .hidden-message:hover {
+            background-color: #8b0000;
+            color: white;
+        }
+        
+        .image-placeholder {
+            width: 250px;
+            height: 300px;
+            background-color: #f0f0f0;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #666;
+            font-style: italic;
+        }
+        
+        footer {
+            margin-top: 20px;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #54595d;
+            border-top: 1px solid var(--wikipedia-border);
+        }
+        
+        .blood-effect {
+            position: relative;
+        }
+        
+        .blood-effect:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #8b0000, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .blood-effect:hover:after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Wikipedia</div>
+                <div>Bách khoa toàn thư mở</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="content">
+                <h1><span class="glitch-effect" data-text="Phan Sỹ Nguyên">Phan Sỹ Nguyên</span></h1>
+                
+                <div class="warning-box">
+                    <div class="warning-content">
+                        <strong>CẢNH BÁO:</strong> Bài viết này chứa nội dung về một truyền thuyết đô thị đáng sợ. Người đọc cần cân nhắc trước khi tiếp tục. <span class="scary-text">Sỹ Nguyên có thể đang theo dõi bạn.</span>
+                    </div>
+                </div>
+                
+                <p><strong>Phan Sỹ Nguyên</strong> là một truyền thuyết đô thị được lưu truyền tại trường Nguyễn Công Trứ. Theo truyền thuyết, đây là một thực thể siêu nhiên hoặc hồn ma ám ảnh những ai có hành vi trêu chọc, bắt nạt học sinh có giấy hòa nhập.</p>
+                
+                <div class="infobox">
+                    <div class="infobox-title">Phan Sỹ Nguyên</div>
+                    
+                    <div class="infobox-image">
+                        <!-- THAY ĐỔI TÊN ẢNH Ở ĐÂY -->
+                        <!-- Thay thế dòng dưới bằng: <img src="TÊN-ẢNH-CỦA-BẠN.jpg" alt="Mô tả ảnh Phan Sỹ Nguyên"> -->
+                        <div class="image-placeholder">
+                            <img src="fancy-milk.jpg" alt="Mô tả ảnh Phan Sỹ Nguyên"><br>
+                            
+                        </div>
+                        <div class="caption">Hình ảnh được cho là mô tả Phan Sỹ Nguyên</div>
+                    </div>
+                    
+                    <div class="infobox-row">
+                        <div class="infobox-label">Tình trạng</div>
+                        <div class="infobox-value"><span class="scary-text flicker">Đang hoạt động</span></div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Loại</div>
+                        <div class="infobox-value">Thực thể siêu nhiên/Hồn ma</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Địa điểm hoạt động</div>
+                        <div class="infobox-value">Trường Nguyễn Công Trứ</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Thời điểm hoạt động</div>
+                        <div class="infobox-value">Khi có học sinh hòa nhập bị trêu chọc</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Mức độ nguy hiểm</div>
+                        <div class="infobox-value"><span class="scary-text"> Cực kỳ nguy hiểm - Không nên khiêu khích</span></div>
+                    </div>
+                </div>
+                
+                <h2>Nguồn gốc</h2>
+                <p>Nguồn gốc chính xác của truyền thuyết Phan Sỹ Nguyên vẫn còn là một bí ẩn. Một số người tin rằng Sỹ Nguyên từng là một học sinh của trường, người đã bị bắt nạt và qua đời trong một hoàn cảnh bí ẩn. Linh hồn của cậu vẫn còn vương vấn lại trường để bảo vệ những học sinh yếu thế.</p>
+                
+                <p>Một giả thuyết khác cho rằng Sỹ Nguyên là một thực thể được tạo ra từ nỗi sợ hãi và áp lực của học sinh, một dạng tulpa hay thought-form có khả năng can thiệp vào thực tại.</p>
+                
+                <h2>Biểu hiện và hoạt động</h2>
+                <p>Theo các ghi chép và lời kể, Phan Sỹ Nguyên thường xuất hiện khi có học sinh có giấy hòa nhập bị trêu chọc. Biểu hiện ban đầu thường là:</p>
+                
+                <ul>
+                    <li>Nhiệt độ trong phòng đột ngột giảm xuống</li>
+                    <li>Tiếng bước chân vang lên trong hành lang vắng</li>
+                    <li>Tiếng thì thầm không rõ nguồn gốc</li>
+                    <li>Bóng đèn nhấp nháy bất thường</li>
+                </ul>
+                
+                <div class="quote-box">
+                    "Tôi đã thấy... một bóng đen trong phòng vệ sinh. Nó không có khuôn mặt rõ ràng, nhưng tôi biết nó đang nhìn tôi. Rồi tôi nghe thấy giọng nói: 'Đừng trêu bạn ấy nữa...' Tôi đã không dám bước vào phòng vệ sinh một mình trong suốt một tháng sau đó."
+                    <br>- Một học sinh giấu tên
+                </div>
+                
+                <h2>Hậu quả khi bị Sỹ Nguyên "ghé thăm"</h2>
+                <p>Tùy theo mức độ nghiêm trọng của hành vi trêu chọc, Sỹ Nguyên sẽ có những phản ứng khác nhau:</p>
+                
+                <h3>Mức độ nhẹ</h3>
+                <p>Đối với những trường hợp trêu chọc nhẹ, Sỹ Nguyên thường chỉ xuất hiện để cảnh báo:</p>
+                <ul>
+                    <li>Hiện ra trong giấc mơ với lời cảnh báo</li>
+                    <li>Để lại những lời nhắn đe dọa trên bàn học</li>
+                    <li>Méc cô giáo về hành vi của học sinh</li>
+                </ul>
+                
+                <h3>Mức độ nặng</h3>
+                <p>Đối với những trường hợp bắt nạt nghiêm trọng, hậu quả sẽ khủng khiếp hơn nhiều:</p>
+                <ul>
+                    <li>Bị tấn công về mặt tinh thần với những lời lẽ nặng nề</li>
+                    <li>Gặp phải những tai nạn bí ẩn trong trường (cụ thể là mất cặp)</li>
+                    <li>Bị ám ảnh liên tục, không thể tập trung học tập vì có lượng nhiệt độ quá cao (cay đỏ dái)</li>
+                    <li><span class="scary-text">Một số trường hợp được cho là đã biến mất không dấu vết</span></li>
+                </ul>
+                
+                <div class="quote-box">
+                    "Nó không chỉ dừng lại ở việc dọa nạt. Khi tôi tiếp tục trêu chọc Nam - cậu bạn có giấy hòa nhập, tôi bắt đầu thấy bóng đen đó ở khắp mọi nơi. Trong lớp, trong phòng vệ sinh, thậm chí trong phòng ngủ của tôi. Một buổi tối, tôi thức dậy và thấy nó đứng ngay cạnh giường. Tôi không thể mô tả khuôn mặt đó... nó không phải là khuôn mặt người. Từ đó, tôi đã dừng lại và xin lỗi Nam."
+                    <br>- Một học sinh đã từng trải nghiệm
+                </div>
+                
+                <h2>Phòng tránh</h2>
+                <p>Để tránh bị Sỹ Nguyên "ghé thăm", học sinh trường Nguyễn Công Trứ được khuyến cáo:</p>
+                <ul>
+                    <li>Không trêu chọc, bắt nạt bất kỳ học sinh nào, đặc biệt là những người có giấy hòa nhập</li>
+                    <li>Nếu lỡ trêu chọc, nên xin lỗi ngay lập tức</li>
+                    <li>đừng để Cho Sỹ Phán hoặc bị sẽ bị Phan Sỹ Chó</li>
+                    <li>Nếu nghe thấy tiếng bước chân lạ trong hành lang vắng, hãy cầu nguyện đít bạn sẽ không nở hoa</li>
+                </ul>
+                
+                <h2>Những câu chuyện đáng sợ</h2>
+                <p>Nhiều thế hệ học sinh đã kể lại những trải nghiệm kinh hoàng vì mất cặp với Sỹ Nguyên:</p>
+                
+                <p>Một nhóm học sinh lớp 10 đã quyết định thử nghiệm truyền thuyết bằng cách cố tình trêu chọc một Sỹ Nữ có giấy hòa nhập. Sau đó, họ bị nhốt trong phòng thí nghiệm hóa học cho đến tận khuya. Khi được tìm thấy, tất cả đều trong tình trạng hoảng loạn, khẳng định đã thấy một bóng đen với đôi mắt đỏ lồi đi xuyên qua tường và lấy sạch cặp của họ .</p>
+                
+                <p>Một học sinh khác sau khi liên tục bắt nạt bạn cùng lớp đã bắt đầu nhận được những tin nhắn lạ trên điện thoại, mặc dù số điện thoại đó không tồn tại trong danh bạ. Những tin nhắn này cảnh báo về hậu quả mà cậu sẽ phải chịu nếu không dừng lại. Sau đó, cậu bị hiếp dâm một cách bí ẩn và phải nghỉ học một thời gian dài.</p>
+                
+                <div class="warning-box">
+                    <div class="warning-content">
+                        <strong>GHI CHÚ QUAN TRỌNG:</strong> Bài viết này chỉ tổng hợp các câu chuyện truyền miệng và không có bằng chứng xác thực về sự tồn tại của Phan Sỹ Nguyên. Tuy nhiên, <span class="scary-text">hãy cẩn thận với những gì bạn làm ở trường Nguyễn Công Trứ. Sỹ Nguyên có thể đang theo dõi.</span>
+                    </div>
+                </div>
+                
+                <h2>Xem thêm</h2>
+                <ul>
+                    <li>Truyền thuyết đô thị Việt Nam</li>
+                    <li>Các thực thể siêu nhiên trong văn hóa dân gian</li>
+                    <li>Hiện tượng tâm linh trong trường học</li>
+                </ul>
+                
+                <footer>
+                    <p>Trang này được sửa đổi lần cuối vào <span class="scary-text">NGÀY KHÔNG XÁC ĐỊNH</span> lúc <span class="scary-text">00:00</span>.</p>
+                    <p>Văn bản được phát hành theo Giấy phép Creative Commons Ghi công–Chia sẻ tương tự; có thể áp dụng điều khoản bổ sung.</p>
+                </footer>
+            </div>
+            
+            <div class="sidebar">
+                <h2>Thông tin bài viết</h2>
+                <div class="infobox">
+                    <div class="infobox-title">Phan Sỹ Nguyên</div>
+                    
+                    <div class="infobox-image">
+                        <!-- THAY ĐỔI TÊN ẢNH Ở ĐÂY -->
+                        <!-- Thay thế dòng dưới bằng: <img src="TÊN-ẢNH-CỦA-BẠN.jpg" alt="Mô tả ảnh Phan Sỹ Nguyên"> -->
+                        <div class="image-placeholder">
+                            <img src="fancy.jpg" alt="Mô tả ảnh Phan Sỹ Nguyên">
+                        </div>
+                    </div>
+                    
+                    <div class="infobox-row">
+                        <div class="infobox-label">Tình trạng</div>
+                        <div class="infobox-value"><span class="scary-text flicker">Đang hoạt động</span></div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Loại</div>
+                        <div class="infobox-value">Thực thể siêu nhiên</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Địa điểm hoạt động</div>
+                        <div class="infobox-value">Trường Nguyễn Công Trứ</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Thời điểm hoạt động</div>
+                        <div class="infobox-value">Khi có học sinh bị trêu chọc</div>
+                    </div>
+                    <div class="infobox-row">
+                        <div class="infobox-label">Mức độ nguy hiểm</div>
+                        <div class="infobox-value"><span class="scary-text">Cao</span></div>
+                    </div>
+                </div>
+                
+                <h2>Thể loại</h2>
+                <ul>
+                    <li>Truyền thuyết đô thị</li>
+                    <li>Hiện tượng siêu nhiên</li>
+                    <li>Truyền thuyết trường học</li>
+                    <li>Thực thể bí ẩn</li>
+                </ul>
+                
+                <h2>Ngôn ngữ khác</h2>
+                <ul>
+                    <li>English</li>
+                    <li>Français</li>
+                    <li>中文</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <div class="warning-content">
+                        <strong>LƯU Ý:</strong> <span class="hidden-message">ĐỪNG TRÊU BẠN CÓ GIẤY HÒA NHẬP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Thêm hiệu ứng glitch cho tiêu đề
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('h1');
+            title.innerHTML = '<span class="glitch-effect" data-text="Phan Sỹ Nguyên">Phan Sỹ Nguyên</span>';
+            
+            // Thêm hiệu ứng nhấp nháy ngẫu nhiên cho các phần tử có class flicker
+            setInterval(() => {
+                const flickerElements = document.querySelectorAll('.flicker');
+                flickerElements.forEach(el => {
+                    if (Math.random() > 0.7) {
+                        el.style.opacity = Math.random() > 0.5 ? '1' : '0.4';
+                    }
+                });
+            }, 200);
+            
+            // Thêm hiệu ứng khi di chuột qua các cảnh báo
+            const warnings = document.querySelectorAll('.warning-box');
+            warnings.forEach(warning => {
+                warning.addEventListener('mouseover', function() {
+                    this.style.backgroundColor = '#fff0f0';
+                    this.style.borderColor = '#ff4444';
+                });
+                
+                warning.addEventListener('mouseout', function() {
+                    this.style.backgroundColor = '#fef6e7';
+                    this.style.borderColor = '#fc3';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
